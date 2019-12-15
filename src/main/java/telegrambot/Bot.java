@@ -11,24 +11,36 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import org.telegram.telegrambots.meta.generics.LongPollingBot;
 
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 
 
 
 public class Bot extends TelegramLongPollingBot {
-    MyDialog dialog = new MyDialog();
+    public HashMap<Long, MyDialog> users = new HashMap<>();
+    //MyDialog dialog = new MyDialog();
+    public static String Rules =
+            "Для начала игры введите /start.\n" +
+                    "Чтобы узнать правила, введите /help.\n" +
+                    "Чтобы узнать счёт, введите /score.\n" +
+                    "Чтобы начать сначала, введите /again.\n" +
+                    "Чтобы выйти из игры, введите /exit\n";
     @Override
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
-
+        //message.getFrom().getFirstName();
+        if (!users.containsKey(message.getChatId())){
+            users.put(message.getChatId(), new MyDialog(message.getChatId(), message.getFrom().getFirstName()));
+        }
         if (message != null && message.hasText()) {
             if (message.getText().equals("/exit")){
-                dialog = new MyDialog();
+                users.remove(message.getChatId());
                 sendMsg(message, "До свидания.");
-            }
-            else {
-                String reply = dialog.getReaction(message.getText());
+            } else if (message.getText().equals("/help")) {
+                sendMsg(message, Rules);
+            } else {
+                String reply = users.get(message.getChatId()).getReaction(message.getText());
                 sendMsg(message, reply);
             }
         }

@@ -9,7 +9,8 @@ public class Game {
                     "Чтобы узнать правила, введите /help.\n" +
                     "Чтобы узнать счёт, введите /score.\n" +
                     "Чтобы начать сначала, введите /again.\n" +
-                    "Чтобы выйти из игры, введите /exit";
+                    "Чтобы выйти из игры, введите /exit\n" +
+                    "Чтобы сменить пользователя, введите /changeuser\n";
     public static Animal[] Animals = {
             new Animal("ворон", "черный", "лес", "маленький"),
             new Animal("белка", "оранжевый", "лес", "маленький"),
@@ -23,12 +24,12 @@ public class Game {
     public String userName;
     public int compScore;
     public int userScore;
-
-    public Game() {
+    public boolean isStarted = false;
+    public Game(String name) {
         params.put(Category.COLOR, new String[]{"белый", "черный", "синий", "оранжевый"});
         params.put(Category.AREA, new String[]{"джунгли", "лес", "пустыня", "вода"});
         params.put(Category.SIZE, new String[]{"большой", "средний", "маленький"});
-
+        userName = name;
         Questions = QuestionFactory.makeQuestions(params);
     }
 
@@ -42,11 +43,6 @@ public class Game {
         }
     }
 
-    public String setUserName(String name) {
-        userName = name;
-        return String.format("Игра началась, %s.\nЗагадайте животное.\n", userName);
-    }
-
     public void updateGame() {
         Questions = QuestionFactory.makeQuestions(params);
         if (currentRound.isFinished) roundCount++;
@@ -58,7 +54,10 @@ public class Game {
             return "Чтобы начать новый раунд, введите /again.";
         }
         currentRound = new Round(Questions);
-        return "Введите ваше имя.";
+        return "Добро пожаловать в игру. Игрок должен загадать животное, задача компьютера - \nугадать, что это за животное.\n"
+                + Rules
+                + "Для начала введите любое слово.";
+        //return "Введите ваше имя.";
     }
 
     public String repeatGame() {
@@ -71,8 +70,10 @@ public class Game {
     }
 
     public String playGame(String command) {
-        if (userName == null) {
-            String text = setUserName(command);
+        //if (userName == null) {
+        if (!isStarted){
+            String text = String.format("Игра началась, %s.\nЗагадайте животное.\n", userName);
+            isStarted = true;
             return text + currentRound.play();
         } else if (command.equals("да") || command.equals("нет")) {
             currentRound.putAnswer(currentRound.currentQuestion, command);

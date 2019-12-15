@@ -1,12 +1,16 @@
 package bot;
 
 public class MyDialog {
-    public Game game = new Game();
-
-    public MyDialog() {
+    public Game game;
+    public Long userId;
+    public String userName;
+    public MyDialog(Long id, String name) {
         String s = "Добро пожаловать в игру. Игрок должен загадать животное, задача компьютера - \nугадать, что это за животное.\n" + Game.Rules;
-        //telegrambot.Program.PrintOut("Добро пожаловать в игру. Игрок должен загадать животное, задача компьютера - \nугадать, что это за животное.");
-        //telegrambot.Program.PrintOut(Game.Rules);
+        //bot.Program.PrintOut("Добро пожаловать в игру. Игрок должен загадать животное, задача компьютера - \nугадать, что это за животное.");
+        //bot.Program.PrintOut(Game.Rules);
+        userId = id;
+        userName = name;
+        game = new Game(name);
     }
 
     private static boolean isCommand(String text) {
