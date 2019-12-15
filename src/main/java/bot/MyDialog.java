@@ -5,8 +5,8 @@ public class MyDialog {
 
     public MyDialog() {
         String s = "Добро пожаловать в игру. Игрок должен загадать животное, задача компьютера - \nугадать, что это за животное.\n" + Game.Rules;
-        //Program.PrintOut("Добро пожаловать в игру. Игрок должен загадать животное, задача компьютера - \nугадать, что это за животное.");
-        //Program.PrintOut(Game.Rules);
+        //telegrambot.Program.PrintOut("Добро пожаловать в игру. Игрок должен загадать животное, задача компьютера - \nугадать, что это за животное.");
+        //telegrambot.Program.PrintOut(Game.Rules);
     }
 
     private static boolean isCommand(String text) {

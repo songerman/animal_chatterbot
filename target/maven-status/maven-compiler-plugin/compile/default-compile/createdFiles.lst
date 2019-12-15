@@ -1,10 +1,11 @@
 bot\AnimalFactory.class
+telegrambot\Bot.class
+telegrambot\Program.class
 bot\Animal.class
 bot\Question.class
-Program.class
 bot\Round.class
+bot\Program.class
 bot\QuestionFactory.class
 bot\MyDialog.class
 bot\Game.class
 bot\Category.class
-Bot.class

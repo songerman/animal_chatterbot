@@ -76,7 +76,7 @@ goto endInit
 @REM Reaching here means variables are defined and arguments have been captured
 :endInit
 
-%JAVACMD% %JAVA_OPTS% %EXTRA_JVM_ARGUMENTS% -classpath %CLASSPATH_PREFIX%;%CLASSPATH% -Dapp.name="main" -Dapp.repo="%REPO%" -Dbasedir="%BASEDIR%" Program %CMD_LINE_ARGS%
+%JAVACMD% %JAVA_OPTS% %EXTRA_JVM_ARGUMENTS% -classpath %CLASSPATH_PREFIX%;%CLASSPATH% -Dapp.name="animal-chatterbot" -Dapp.repo="%REPO%" -Dbasedir="%BASEDIR%" telegrambot.Program %CMD_LINE_ARGS%
 if ERRORLEVEL 1 goto error
 goto end
 

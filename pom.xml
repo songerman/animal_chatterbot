@@ -18,8 +18,8 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
-                            <mainClass>Program</mainClass>
-                            <name>main</name>
+                            <mainClass>telegrambot.Program</mainClass>
+                            <name>animal-chatterbot</name>
                         </program>
                     </programs>
                 </configuration>
@@ -38,7 +38,7 @@
                 <version>2.0.13</version>
                 <configuration>
                     <processTypes>
-                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Program</web>
+                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* telegrambot.Program</web>
                     </processTypes>
                 </configuration>
             </plugin>
