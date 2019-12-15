@@ -61,6 +61,9 @@ public class Game {
 
     public String repeatGame() {
         if (currentRound != null) {
+            if (!currentRound.isFinished) {
+                return "Вы еще не закончили раунд. Введите любой текст.";
+            }
             updateGame();
             return "Что ж, попробуем ещё раз.\n" + currentRound.play();
         } else {
@@ -83,7 +86,7 @@ public class Game {
             }
             return result;
         }
-        return "Я вас не понимаю :(";
+        return "Я вас не понимаю :( \n Для ответа на вопрос введите \"да\" или \"нет\" ";
     }
 
     public String getScore() {

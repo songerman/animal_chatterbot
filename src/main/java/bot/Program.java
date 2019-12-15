@@ -2,7 +2,6 @@ package bot;
 
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Program {
     public static HashMap<Long, MyDialog> users = new HashMap<>();
