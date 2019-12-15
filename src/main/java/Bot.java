@@ -1,3 +1,4 @@
+import bot.MyDialog;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -8,18 +9,25 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import org.telegram.telegrambots.meta.generics.LongPollingBot;
 
+import java.util.Scanner;
 import java.util.logging.Level;
 
-public class Bot extends TelegramLongPollingBot {
 
+
+public class Bot extends TelegramLongPollingBot {
+    MyDialog dialog = new MyDialog();
     @Override
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
+
         if (message != null && message.hasText()) {
-            if (message.getText().equals("/help")) {
-                sendMsg(message, "Чем я могу помочь?");
-            } else {
-                sendMsg(message, "Я всего лишь бот...........");
+            if (message.getText().equals("/exit")){
+                dialog = new MyDialog();
+                sendMsg(message, "До свидания.");
+            }
+            else {
+                String reply = dialog.getReaction(message.getText());
+                sendMsg(message, reply);
             }
         }
     }
