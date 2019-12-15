@@ -28,7 +28,7 @@ public class MyDialog {
             //return "До свидания.";
             System.exit(0);
         } else if (command.equals("/help")) {
-            return game.Rules;
+            return game.Rules + "Чтобы сменить пользователя, введите /changeuser\n";
         } else if (game.currentRound == null) {
             return "Такой команды не существует...";
         } else if (!game.currentRound.isFinished) {
