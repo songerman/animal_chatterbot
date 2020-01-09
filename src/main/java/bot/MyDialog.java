@@ -1,16 +1,18 @@
 package bot;
 
+import config.User;
+
 public class MyDialog {
     public Game game;
     public Long userId;
     public String userName;
-    public MyDialog(Long id, String name) {
+    public MyDialog(Long id, String name){
         String s = "Добро пожаловать в игру. Игрок должен загадать животное, задача компьютера - \nугадать, что это за животное.\n" + Game.Rules;
         //bot.Program.PrintOut("Добро пожаловать в игру. Игрок должен загадать животное, задача компьютера - \nугадать, что это за животное.");
         //bot.Program.PrintOut(Game.Rules);
         userId = id;
         userName = name;
-        game = new Game(name);
+        game = new Game(userName);
     }
 
     private static boolean isCommand(String text) {

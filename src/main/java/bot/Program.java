@@ -1,5 +1,7 @@
 package bot;
 
+import config.User;
+
 import java.util.HashMap;
 import java.util.Scanner;
 

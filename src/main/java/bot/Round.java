@@ -12,6 +12,7 @@ public class Round {
     public ArrayList<Question> questions;
     public HashMap<Question, Boolean> answers = new HashMap<>();
     public String winner;
+    public HashMap<Category, Boolean> repeatedCategories = new HashMap<>();
 
     public Round(ArrayList<Question> questions) {
         this.questions = questions;
@@ -36,25 +37,36 @@ public class Round {
     public void putAnswer(Question question, String answer) {
         if (answer.equals("да")) {
             answers.put(question, Boolean.TRUE);
+            if (!repeatedCategories.containsKey(question.category.getName())) {
+                repeatedCategories.put(question.category, Boolean.TRUE);
+            }
         } else {
             answers.put(question, Boolean.FALSE);
         }
     }
 
     public String play() {
-        if (askedQuestionCount <= questionCount) {
-            Animal animal = guessAnimal(answers, Game.Animals);
-            if (animal != null) {
-                isFinished = true;
-                winner = "computer";
-                return String.format("Дайте-ка подумать...\nЗагаданное животное - %s.", animal.name);
-            } else if (askedQuestionCount < questionCount) {
+        Animal animal = guessAnimal(answers, Game.Animals);
+        if (animal != null) {
+            isFinished = true;
+            winner = "computer";
+            return String.format("Дайте-ка подумать...\nЗагаданное животное - %s.", animal.name);
+        } else {
+            while (askedQuestionCount < questionCount) {
                 currentQuestion = getNextQuestion(questions, askedQuestionCount);
-                return (currentQuestion.question);
+                askedQuestionCount++;
+
+                if (!repeatedCategories.containsKey(currentQuestion.category)) {
+                    return (currentQuestion.question);
+                }
             }
         }
+
         isFinished = true;
         winner = "user";
         return "Я не знаю такое животное :(";
     }
 }
+
+
+

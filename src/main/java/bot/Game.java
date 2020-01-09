@@ -1,5 +1,7 @@
 package bot;
 
+import config.User;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -79,7 +81,7 @@ public class Game {
             return text + currentRound.play();
         } else if (command.equals("да") || command.equals("нет")) {
             currentRound.putAnswer(currentRound.currentQuestion, command);
-            currentRound.askedQuestionCount++;
+            //currentRound.askedQuestionCount++;
             String result = currentRound.play();
             if (currentRound.isFinished) {
                 makeScore();
