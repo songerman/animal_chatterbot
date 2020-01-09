@@ -1,11 +1,12 @@
 package telegrambot;
 
+import config.User;
 import config.Users;
+import dialog.Dialog;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
@@ -14,9 +15,10 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
-        Users.checkTgUser(message);
         if (message != null && message.hasText()) {
-            String reply = TelegramDialog.makeReply(message);
+            config.User user = new User(message);
+            Users.checkUser(user);
+            String reply = Dialog.makeReply(message.getText(), user);
             sendMsg(message, reply);
         }
     }
@@ -25,7 +27,7 @@ public class Bot extends TelegramLongPollingBot {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setReplyToMessageId(message.getMessageId());
+        //sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(text);
         try {
             execute(sendMessage);
