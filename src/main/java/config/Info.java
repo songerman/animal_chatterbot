@@ -1,5 +1,6 @@
 package config;
 
+import java.io.Console;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -15,8 +16,8 @@ public class Info {
     }
 
     private static Scanner scan = new Scanner(reader);
-    private static String TgToken= scan.nextLine().split(":")[1];
-    private static String TgName = scan.nextLine().split(":")[1];
+    private static String TgToken= scan.nextLine();
+    private static String TgName = scan.nextLine();
     private static String VkToken = scan.nextLine().split(":")[1];
     private static int VkGroupId = Integer.parseInt(scan.nextLine().split(":")[1]);
 

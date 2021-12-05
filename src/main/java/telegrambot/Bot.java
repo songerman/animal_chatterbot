@@ -1,22 +1,28 @@
 package telegrambot;
 
-import config.User;
 import config.Users;
 import dialog.Dialog;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
+
 public class Bot extends TelegramLongPollingBot {
+
+    private final String BOT_NAME = config.Info.getTelegramName();;
+    private final String BOT_TOKEN = config.Info.getTelegramToken();
+
 
     @Override
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
-            config.User user = new User(message);
+            config.User user = new config.User(message);
             Users.checkUser(user);
             String reply = Dialog.makeReply(message.getText(), user);
             sendMsg(message, reply);
@@ -38,11 +44,11 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return config.Info.getTelegramName();
+        return BOT_NAME;
     }
 
     @Override
     public String getBotToken() {
-        return config.Info.getTelegramToken();
+        return BOT_TOKEN;
     }
 }

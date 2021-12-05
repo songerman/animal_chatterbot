@@ -1,6 +1,6 @@
 package config;
 
-import com.petersamokhin.bots.sdk.objects.Message;
+//import com.petersamokhin.bots.sdk.objects.Message;
 
 
 public class User {
@@ -9,13 +9,13 @@ public class User {
     public String Platform;
 
     //vk user
-    public User(Message msg) {
+    /*public User(Message msg) {
         if (msg != null) {
             Id = msg.authorId().longValue();
             Name = "https://vk.com/id" + msg.authorId();
             Platform = "VK";
         }
-    }
+    }*/
 
     //tg user
     public User(org.telegram.telegrambots.meta.api.objects.Message msg){

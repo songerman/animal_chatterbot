@@ -1,17 +1,19 @@
 package telegrambot;
 
-import org.telegram.telegrambots.ApiContextInitializer;
+
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class Program {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TelegramApiException {
         //System.getProperties().put( "proxySet", "true" );
         //System.getProperties().put( "socksProxyHost", "127.0.0.1" );
         //System.getProperties().put( "socksProxyPort", "9050" );
-        ApiContextInitializer.init();
-        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         try {
             telegramBotsApi.registerBot(new Bot());
         } catch (TelegramApiRequestException e) {
