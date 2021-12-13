@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="animal_chatterbot" target="8" />
+      <module name="animal_chatterbot" target="11" />
       <module name="chatterbot" target="7" />
     </bytecodeTargetLevel>
   </component>
