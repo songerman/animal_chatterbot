@@ -7,7 +7,7 @@ import java.util.Set;
 public class QuestionFactory {
 
     public static ArrayList<Question> makeQuestions(HashMap<Category, String[]> params) {
-        ArrayList<Question> questions = new ArrayList<Question>();
+        ArrayList<Question> questions = new ArrayList<>();
         Set<Category> categories = params.keySet();
         for (Category category : categories) {
             String[] features = params.get(category);
