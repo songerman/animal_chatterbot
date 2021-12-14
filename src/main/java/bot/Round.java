@@ -1,8 +1,8 @@
 package bot;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import repository.entities.Description;
+
+import java.util.*;
 
 public class Round {
     public boolean isFinished;
@@ -46,7 +46,7 @@ public class Round {
     }
 
     public String play() {
-        Animal animal = guessAnimal(answers, Game.Animals);
+        Animal animal = guessAnimal(answers, Game.animals);
         if (animal != null) {
             isFinished = true;
             winner = "computer";

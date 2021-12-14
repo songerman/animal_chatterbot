@@ -1,6 +1,7 @@
 package bot;
 
 public class Animal {
+
     public String name;
     public String color;
     public String area;

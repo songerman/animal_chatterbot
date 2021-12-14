@@ -5,16 +5,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Users {
-    public static Map<Long, MyDialog> Users = new HashMap<>();
+    public static Map<Long, MyDialog> users = new HashMap<>();
 
     public static void checkUser(User user) {
-        if (!Users.containsKey(user.Id)) {
-            Users.put(
+        if (!users.containsKey(user.Id)) {
+            users.put(
                     user.Id,
-                    new MyDialog(new Long(user.Id), user.Name));
+                    new MyDialog(user.Id, user.Name));
         }
     }
     public static void deleteUser(User user) {
-        Users.remove(user.Id);
+        users.remove(user.Id);
     }
 }

@@ -12,9 +12,9 @@ public class Dialog {
         } else if (msg.equals("/help")) {
             return Game.Rules;
         }else if (msg.equals("Начать")) {
-            return Users.Users.get(user.Id).getReaction("/start");
+            return Users.users.get(user.Id).getReaction("/start");
         } else {
-            return Users.Users.get(user.Id).getReaction(msg);
+            return Users.users.get(user.Id).getReaction(msg);
         }
     }
 }
