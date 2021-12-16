@@ -12,12 +12,12 @@ import java.util.List;
 
 @Repository
 @Scope("singleton")
-public class DescriptionsRepository extends BaseRepository {
+public class DescriptionsRepository {
 
-    public List<String> getAll(String descriptionName) {
+    private List<String> getAll(String descriptionName) {
         try {
             List<String> values = new ArrayList<>();
-            Connection connection = getComboPooledDataSource().getConnection();
+            Connection connection = DataSource.getComboPooledDataSource().getConnection();
             ResultSet rs = connection.createStatement().executeQuery(String.valueOf(new Formatter().format("SELECT value FROM descriptions WHERE name = '%s'", descriptionName)));
             while (rs.next()) {
                 String value = rs.getString("value");
@@ -29,5 +29,17 @@ public class DescriptionsRepository extends BaseRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<String> getAllColors() {
+        return getAll("color");
+    }
+
+    public List<String> getAllSizes() {
+        return getAll("size");
+    }
+
+    public List<String> getAllAreas() {
+        return getAll("area");
     }
 }

@@ -1,7 +1,5 @@
 package bot;
 
-import repository.entities.Description;
-
 import java.util.*;
 
 public class Round {

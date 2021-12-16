@@ -1,14 +1,9 @@
 package bot;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import repository.AnimalsRepository;
 import repository.DescriptionsRepository;
-import repository.entities.Animal;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Game {
     public static String Rules =
@@ -39,46 +34,15 @@ public class Game {
     private boolean isStarted = false;
 
     Game(String name) {
-        final HashMap<String, HashMap<String, String>> animalsMap = animalsRepository.findAll();
-        List<bot.Animal> animalsList = new ArrayList<>();
-
-        animalsMap.forEach((animalName, stringStringHashMap) -> {
-            bot.Animal animal;
-            AtomicReference<String> animalColor = new AtomicReference<>("");
-            AtomicReference<String> animalArea = new AtomicReference<>("");
-            AtomicReference<String> animalSize = new AtomicReference<>("");
-            stringStringHashMap.forEach((_name, _value) -> {
-                switch (_name) {
-                    case "color": {
-                        animalColor.set(_value);
-                        break;
-                    }
-                    case "area": {
-                        animalArea.set(_value);
-                        break;
-                    }
-                    case "size": {
-                        animalSize.set(_value);
-                        break;
-                    }
-                }
-            });
-            animal = new bot.Animal(animalName, animalColor.get(), animalArea.get(), animalSize.get());
-            animalsList.add(animal);
-        });
-        animals = animalsList.toArray(new bot.Animal[0]);
-        String[] colors = descriptionsRepository.getAll("color").toArray(new String[0]);
-        String[] areas = descriptionsRepository.getAll("area").toArray(new String[0]);
-        String[] sizes = descriptionsRepository.getAll("size").toArray(new String[0]);
+        animals = animalsRepository.findAll().toArray(new bot.Animal[0]);
+        String[] colors = descriptionsRepository.getAllColors().toArray(new String[0]);
+        String[] areas = descriptionsRepository.getAllAreas().toArray(new String[0]);
+        String[] sizes = descriptionsRepository.getAllSizes().toArray(new String[0]);
         params.put(Category.COLOR, colors);
         params.put(Category.AREA, areas);
         params.put(Category.SIZE, sizes);
         userName = name;
         questions = QuestionFactory.makeQuestions(params);
-    }
-
-    public bot.Animal[] getAnimals() {
-        return animals;
     }
 
     private void makeScore() {
