@@ -25,7 +25,6 @@ public class Game {
 
     static bot.Animal[] animals;
     private static ArrayList<Question> questions;
-    private HashMap<Category, String[]> params = new HashMap<>();
     Round currentRound;
     private int roundCount;
     private String userName;
@@ -35,14 +34,8 @@ public class Game {
 
     Game(String name) {
         animals = animalsRepository.findAll().toArray(new bot.Animal[0]);
-        String[] colors = descriptionsRepository.getAllColors().toArray(new String[0]);
-        String[] areas = descriptionsRepository.getAllAreas().toArray(new String[0]);
-        String[] sizes = descriptionsRepository.getAllSizes().toArray(new String[0]);
-        params.put(Category.COLOR, colors);
-        params.put(Category.AREA, areas);
-        params.put(Category.SIZE, sizes);
         userName = name;
-        questions = QuestionFactory.makeQuestions(params);
+        questions = QuestionFactory.makeQuestions();
     }
 
     private void makeScore() {
@@ -56,7 +49,7 @@ public class Game {
     }
 
     private void updateGame() {
-        questions = QuestionFactory.makeQuestions(params);
+        questions = QuestionFactory.makeQuestions();
         if (currentRound.isFinished) roundCount++;
         currentRound = new Round(questions);
     }

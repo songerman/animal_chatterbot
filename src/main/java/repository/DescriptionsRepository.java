@@ -14,11 +14,11 @@ import java.util.List;
 @Scope("singleton")
 public class DescriptionsRepository {
 
-    private List<String> getAll(String descriptionName) {
+    public static List<String> getAll(String descriptionName) {
         try {
             List<String> values = new ArrayList<>();
             Connection connection = DataSource.getComboPooledDataSource().getConnection();
-            ResultSet rs = connection.createStatement().executeQuery(String.valueOf(new Formatter().format("SELECT value FROM descriptions WHERE name = '%s'", descriptionName)));
+            ResultSet rs = connection.createStatement().executeQuery(String.valueOf(new Formatter().format("SELECT DISTINCT value FROM descriptions WHERE name = '%s'", descriptionName)));
             while (rs.next()) {
                 String value = rs.getString("value");
                 values.add(value);
@@ -31,15 +31,20 @@ public class DescriptionsRepository {
         return null;
     }
 
-    public List<String> getAllColors() {
-        return getAll("color");
-    }
-
-    public List<String> getAllSizes() {
-        return getAll("size");
-    }
-
-    public List<String> getAllAreas() {
-        return getAll("area");
+    public static List<String> getAllCategories() {
+        try {
+            List<String> values = new ArrayList<>();
+            Connection connection = DataSource.getComboPooledDataSource().getConnection();
+            ResultSet rs = connection.createStatement().executeQuery("SELECT DISTINCT name FROM descriptions");
+            while (rs.next()) {
+                String value = rs.getString("name");
+                values.add(value);
+            }
+            connection.close();
+            return values;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

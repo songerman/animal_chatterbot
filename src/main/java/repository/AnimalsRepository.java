@@ -57,26 +57,8 @@ public class AnimalsRepository {
     }
 
     private Animal getAnimal(String animalName, HashMap<String, String> descriptionsMap) {
-        AtomicReference<String> animalColor = new AtomicReference<>("");
-        AtomicReference<String> animalArea = new AtomicReference<>("");
-        AtomicReference<String> animalSize = new AtomicReference<>("");
-        descriptionsMap.forEach((_name, _value) -> {
-            switch (_name) {
-                case "color": {
-                    animalColor.set(_value);
-                    break;
-                }
-                case "area": {
-                    animalArea.set(_value);
-                    break;
-                }
-                case "size": {
-                    animalSize.set(_value);
-                    break;
-                }
-            }
-        });
-        Animal animal = new Animal(animalName, animalColor.get(), animalArea.get(), animalSize.get());
+        //Animal animal = new Animal(animalName, animalColor.get(), animalArea.get(), animalSize.get());
+        Animal animal = new Animal(animalName, descriptionsMap);
         return animal;
     }
 }
